@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>gitlet solution | Owenun</title>
+<meta name="description" content="喜欢夏天，也喜欢冬天">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Owenun.github.io/favicon.ico?v=1701787638595">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Owenun.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Owenun.github.io">
+        <img class="avatar" src="https://Owenun.github.io/images/avatar.png?v=1701787638595" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Owenun.github.io">
+        <h1 class="site-title">Owenun</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">gitlet solution</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-12-05</span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <p>版本控制 <em>gitlet</em>解决方案</p>
+<h3 id="命令">命令</h3>
+<ul>
+<li>
+<p>gitlet  参数为空时 打印<em>help</em>，输出各种命令的帮助手册</p>
+</li>
+<li>
+<p>init</p>
+<p>使用gitlet init 在pwd目录下创建 .gitlet目录。gitlet包括以下文件HEAD</p>
+</li>
+</ul>
+<p>​	目录结构见下</p>
+<p><img src="https://Owenun.github.io/post-images/1701787586068.png" alt="" loading="lazy"><br>
+​	// 上面目录可能还包含logs目录，暂且忽略</p>
+<p>目录解释<br>
+- HEAD指向当前工作分支的head<br>
+- objects包含历史提交的object对象，根据类型分为blob对象 tree对象 commit对象<br>
+- refs包含heads目录，heads 是文件是分支名称 ex main  test, 文件内记录是对应分支head指向的commit对象的hash值<br>
+- logs 该目录暂且忽略，以后有补充再补上。</p>
+<ul>
+<li>
+<p>add</p>
+<p>命令描述 add 后的参数为文件名，使用add finame 会将文件添加加到暂存区。</p>
+<p>add filename 首先会对该file 创建一个blob对象</p>
+<p>add命令实际上是构建了一颗working tree对象，这棵tree首先从上一次commit指向的tree复制一份，然后将添加（删除）到暂存区的对象插入（删除）到这颗tree中。</p>
+</li>
+<li>
+<p>commit</p>
+<p>一次commit会创建一个commit对象，并将当前分支前移动到当前commit。commit 对象包含几个属性 时间|作者| commit message|对父commit对象的引用，对当前commit 根tree的引用</p>
+</li>
+<li>
+<p>merge</p>
+<p>merge 的参数是branch name 改命令会将该branch和并到当前分支。</p>
+<p>具体的操作是，找到两分支的连接点，从连接点开始，没有改变的对象插入到新tree，两分支各自新创建的tree加入到新tree，从连接点开始共同的对象但有各自有修改却没有冲突的，合并之后加入到新tree，对于有冲突的手动合并冲突后才能加入到新tree。</p>
+<p>新树创建完成后commit一次，并提交一次默认commit message</p>
+</li>
+<li>
+<p>branch</p>
+<p>branch 参数是 new_branch_name 这样会创建一个新的分支 new_branch</p>
+<p>这个命令的作用其实微乎其微，不会对版本产生什么影响。它做的事情是创建了一个branch/head 改head指向当前分支最后一次commit</p>
+</li>
+<li>
+<p>checkout</p>
+<p>checkout out 可以接两种参数	<br>
+第一种 checkout branch_name , 这样会将将工作分支切换到branch_name 分支，工作目录的内容也会切换到该分支的内容</p>
+<p>第二种 checkout commit_hashvalue 这样会将HEAD切回到该commit 同时工作目录的内容也会切换的该commit 时刻的内容</p>
+</li>
+<li>
+<p>reset</p>
+<p>reset 的参数是 commit_hashvalue reset 会将当前分支头指向该commit，工作目录中文件也会更改到该commit时刻文件版本</p>
+</li>
+<li>
+<p>rm-branch</p>
+<p>该命令会将指定branch移除。该命令不会删除任何模型对象，但会删除该分支的引用。</p>
+</li>
+<li>
+<p>log</p>
+<p>log 命令会打印出从当前头后的所有log信息，这些信息存储在commit中。如果有合并，log默认沿第一个父节点打印log信息</p>
+</li>
+<li>
+<p>global-log</p>
+<p>打印所有commit的log信息</p>
+</li>
+<li>
+<p>status</p>
+<p>status 打印从上一次commit开始的工作情况</p>
+</li>
+<li>
+<p>rm</p>
+<p>rm 的参数 rm [file name]</p>
+<p>如果 file已经添加到暂存区，那么就将file从暂存区移除，如果file 是上一次commit 文件，那么将file移除 提交到暂存区，并且从pwd移除file</p>
+</li>
+<li>
+<p>find [commit message]</p>
+<p>打印具有给定提交消息的所有commit 的 hashvalue</p>
+</li>
+<li>
+<p>diff</p>
+<p>这个命令的参数是 当前pwd中的文件，它会输出与在上一次commit 对应文件的差异</p>
+<p>显示差异的方法是调用一种算法，在下面讲到</p>
+</li>
+</ul>
+<h3 id="对象模型">对象模型</h3>
+<pre><code>对每一次版本都已是由下图的模型来控制版本
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://Owenun.github.io/post-images/1701787608263.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>blob 对象</p>
+<p>这个存储的是文件内容本身</p>
+<p>blob对象存储分为三部分部分</p>
+<ul>
+<li>
+<p>对父blob的引用</p>
+</li>
+<li>
+<p>转换编码</p>
+</li>
+<li>
+<p>与父blob差异部分</p>
+<p>解释：进行一次commit是，并不会对文件完全备份，而是保存和上一个版本该文件不同的部分，和由上一个版本与这个版本的差异编码，用于从从上版本构造当前版本。</p>
+<p>这个算法在下面算法部分描述。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>tree 对象</p>
+<p>这个对象存储该目录下的文件（blob）和目录（tree）对象的引用 注意有一个根tree，这棵树被commit对象指向</p>
+</li>
+<li>
+<p>commit 对象</p>
+<p>这个对象包含一些头部 (时间|作者等等) ， 对本次提交根tree的引用，父commit的引用</p>
+</li>
+</ul>
+<p>​	说明： 对于三种对象，都不直接保存它们原本内容，而是通过处理保存在对应的类实例中，在通过序列化（压缩）的方式持续存储对象。对生成的序列化对象计算hashvalue作为其文件名。</p>
+<h3 id="数据结构">数据结构</h3>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://Owenun.github.io/post/wei-ni-zhi-lu/">
+              <h3 class="post-title">
+                下一篇：为你指路
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">喜欢夏天，也喜欢冬天</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  <strong><a href="https://github.com/Owenun" target="_blank">Owenun</a></strong> | <a class="rss" href="https://Owenun.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'dd2b74df0d0f0951156d',
+        clientSecret: '50b9fbaf8d75e89cc7a27506774cbc9d5eb53375',
+        repo: 'Owenun.github.io',
+        owner: 'Owenun',
+        admin: ['Owenun'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

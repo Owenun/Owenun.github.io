@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>为你指路 | Owenun</title>
+<meta name="description" content="喜欢夏天，也喜欢冬天">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Owenun.github.io/favicon.ico?v=1701787638595">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://Owenun.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Owenun.github.io">
+        <img class="avatar" src="https://Owenun.github.io/images/avatar.png?v=1701787638595" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Owenun.github.io">
+        <h1 class="site-title">Owenun</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">为你指路</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-11-18</span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <p>这两天看不良人，感慨万千。<br>
+好喜欢姬如雪。<br>
+看网上好多人都说是从第四季第五季开始喜欢姬如雪的，可是我不是，我一直都喜欢姬如雪。原来喜欢姬如雪可能没什么原因，前几季姬如雪没什么特点，喜欢她就是没什么理由的喜欢。如果一定说有什么特别的理由，应该是姬如雪对李星云如此，非常感动吧。为了救李星云，她牺牲了自己。<br>
+前几季剧情有的地方过于离谱，可能是不太认可这种叙事方式和剧中的价值观，所以甚至隐隐的不太喜欢这部剧。还有就是，很喜欢姬如雪，但是创作团队对姬如雪的描写太少了，我很不开心，也有点失望。<br>
+到第四季，其实剧从剧情到人物到画面都好很多，更喜欢了。姬如雪的情节多了一些，却感觉不够，主角团强的人太多了，姬如雪难免隐形，所以还是有点失望，因为期待有点高。</p>
+<p>后面就是喜欢姬如雪的巅峰，这样的女生，谁人不爱。<br>
+<img src="https://Owenun.github.io/post-images/1700318279186.webp" alt="" loading="lazy"></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://Owenun.github.io/post/xiang-ting-ting-ni/">
+              <h3 class="post-title">
+                下一篇：想听听你
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">喜欢夏天，也喜欢冬天</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  <strong><a href="https://github.com/Owenun" target="_blank">Owenun</a></strong> | <a class="rss" href="https://Owenun.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'dd2b74df0d0f0951156d',
+        clientSecret: '50b9fbaf8d75e89cc7a27506774cbc9d5eb53375',
+        repo: 'Owenun.github.io',
+        owner: 'Owenun',
+        admin: ['Owenun'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
